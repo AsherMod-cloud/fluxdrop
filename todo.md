@@ -1,0 +1,62 @@
+# Project TODO
+
+- [x] Add typed backend proxy procedure for Ryzumi all-in-one downloader endpoint.
+- [x] Ensure the client never calls the Ryzumi API directly.
+- [x] Implement automatic URL platform detection for YouTube, TikTok, Instagram, Facebook, X, Douyin, and Threads.
+- [x] Build dark futuristic landing page with glassmorphism panels, magenta-cyan accents, and Space Grotesk / Geist typography.
+- [x] Add 3D-inspired liquid/orb hero treatment and floating platform icon dock.
+- [x] Add universal URL input with Framer Motion scanning ring/glow loading state.
+- [x] Add typed media result card with thumbnail, title, platform badge, and grouped media variants.
+- [x] Add segmented format and quality selector before download.
+- [x] Add localStorage-backed download history with URL, platform, and media type.
+- [x] Add explicit empty, invalid URL, unsupported platform, API failure, and loading states.
+- [x] Implement responsive mobile-first layout and accessible keyboard/focus behavior.
+- [x] Add Vitest coverage for platform detection, response normalization, and proxy behavior.
+- [x] Run typecheck, tests, and visual screenshot verification before delivery.
+- [x] Update CHANGELOG.md with the completed feature set.
+- [x] Replace CSS-only scanning glow with a Framer Motion input ring animation.
+- [x] Add dedicated in-page invalid URL, unsupported platform, and upstream API failure states.
+- [x] Add Vitest coverage for downloader proxy success, provider 400 mapping, unsupported platform mapping, and network failures.
+- [x] Remove the remaining CSS keyframe scanning glow and rely solely on Framer Motion for the input scanning state.
+- [x] Add Ryzumi endpoint fallback mapping for YouTube MP4, YouTube MP3, Facebook, Instagram, TikTok, Twitter, and Douyin.
+- [x] Make the backend try All-in-One first, then retry with the platform-specific endpoint while preserving the normalized response contract.
+- [x] Add fallback tests for successful secondary endpoint recovery and complete failure handling.
+- [x] Update changelog and save a new checkpoint after fallback verification.
+- [x] Document the All-in-One to platform-specific fallback flow in CHANGELOG.md.
+- [x] Save a new project checkpoint after fallback implementation and verification.
+- [x] Create and verify the post-fallback project checkpoint version.
+- [x] Diagnose the `/api/trpc/downloader.resolve` failure reported from the preview page.
+- [x] Improve proxy diagnostics and handling for upstream whitelist, HTTP, timeout, and response-schema failures.
+- [x] Add regression coverage for the discovered failure mode and verify the downloader flow.
+- [x] Add explicit timeout and malformed-response handling in the downloader proxy.
+- [x] Add Vitest coverage for timeout and malformed upstream response bodies.
+- [x] Re-test the downloader mutation end-to-end in the preview and confirm the actionable 403 message.
+- [x] Verify a real supported URL after the backend egress IP is whitelisted by Ryzumi.
+- [x] Add regression coverage for raw YouTube endpoint responses containing `videoUrl` and metadata without a success wrapper.
+- [x] Document the raw response adaptation and successful live preview resolution.
+- [x] Aggregate available video and audio variants after one Analyze request.
+- [x] Fetch YouTube MP4 and MP3 fallbacks independently when All-in-One lacks one or both media types.
+- [x] Deduplicate and normalize combined media variants into a stable response contract.
+- [x] Update the result card with direct Video/Audio mode selection and MP3/MP4 options.
+- [x] Add tests and live verification for combined audio-video output, then update changelog and checkpoint.
+- [x] Whitelist the current development egress IP `213.172.155.222` and run one live combined MP4/MP3 verification.
+- [x] Save a new project checkpoint after the combined MP3/MP4 aggregation changes and successful live verification.
+- [x] Review the referenced TikTok downloader repository for setup, API contract, licensing, and maintenance status.
+- [x] Assess TikTok provider operational risks, required infrastructure, and compatibility with FluxDrop's adapter contract.
+- [x] Record a recommendation for using, forking, or avoiding the TikTok provider.
+- [x] Add a pinned server-side TikTok downloader dependency and isolate it behind a provider adapter.
+- [x] Resolve public TikTok URLs through the provider and normalize video, image, and audio outputs for FluxDrop.
+- [x] Add timeout, retry bounds, and clear experimental-provider failure handling without accepting user cookies.
+- [x] Add adapter tests and verify the existing result card handles TikTok outputs.
+- [x] Document the experimental TikTok provider constraints, update the changelog, and save a checkpoint.
+- [x] Add explicit retry bounding or a wrapper strategy for the TikTok provider so provider attempts cannot fan out into long internal retry storms.
+- [x] Verify the FluxDrop UI/result card with a live TikTok URL in the browser and capture visual confirmation that video/audio/image outputs render correctly.
+- [x] Save a new project checkpoint after the TikTok provider integration and verification.
+- [x] Verify the FluxDrop result card with a public TikTok image/carousel URL and capture visual confirmation that image outputs render correctly.
+- [x] Add a TikTok image-mode UI regression case to complement the live browser verification.
+- [x] Add a rendered FluxDrop result-card regression test for a TikTok photo post, including Images, JPG selection, and Audio/MP3 mode behavior.
+- [x] Preserve every unique TikTok Photo Mode image URL instead of collapsing same-format slides.
+- [x] Present carousel slides with an explicit slide count and individual selection labels.
+- [x] Add regression coverage for multi-image carousel mode while retaining video/audio quality deduplication.
+- [x] Verify the public TikTok Photo Mode result live, update changelog, and save a checkpoint.
+- [x] Save and verify the post-fix checkpoint for the preserved TikTok carousel slide flow.

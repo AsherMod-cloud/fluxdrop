@@ -1,0 +1,12 @@
+name = "fluxdrop"
+main = "worker/index.ts"
+compatibility_date = "2026-10-23"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist/public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[observability]
+enabled = true
