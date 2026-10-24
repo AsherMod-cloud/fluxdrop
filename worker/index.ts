@@ -150,6 +150,33 @@ function json(data: unknown, status = 200) {
   });
 }
 
+type TrpcBatchInput =
+  | { url?: string; [key: string]: unknown }
+  | Array<{ json?: { url?: string } }>;
+
+export function extractInputUrl(body: TrpcBatchInput) {
+  if (Array.isArray(body)) return body[0]?.json?.url;
+  const batchItem = body["0"] as { json?: { url?: string } } | undefined;
+  return body.url ?? batchItem?.json?.url;
+}
+
+function trpcError(message: string, code: string, httpStatus: number, path: string) {
+  return json(
+    [
+      {
+        error: {
+          json: {
+            message,
+            code,
+            data: { code, httpStatus, path },
+          },
+        },
+      },
+    ],
+    httpStatus,
+  );
+}
+
 export default {
   async fetch(
     request: Request,
@@ -163,18 +190,28 @@ export default {
       url.pathname === "/api/trpc/downloader.resolve"
     ) {
       if (request.method !== "POST")
-        return json({ error: "Method not allowed" }, 405);
+        return url.pathname.includes("/api/trpc/")
+          ? trpcError("Method not allowed", "METHOD_NOT_SUPPORTED", 405, "downloader.resolve")
+          : json({ error: "Method not allowed" }, 405);
       try {
-        const body = (await request.json()) as
-          | { url?: string }
-          | Array<{ json?: { url?: string } }>;
-        const input = Array.isArray(body) ? body[0]?.json?.url : body.url;
-        if (!input) return json({ error: "A valid URL is required." }, 400);
+        const body = (await request.json()) as TrpcBatchInput;
+        const input = extractInputUrl(body);
+        if (!input)
+          return url.pathname.includes("/api/trpc/")
+            ? trpcError("A valid URL is required.", "BAD_REQUEST", 400, "downloader.resolve")
+            : json({ error: "A valid URL is required." }, 400);
         const result = await resolve(input);
         if (url.pathname.includes("/api/trpc/"))
           return json([{ result: { data: { json: result } } }]);
         return json(result);
       } catch (error) {
+        if (url.pathname.includes("/api/trpc/"))
+          return trpcError(
+            error instanceof Error ? error.message : "Unable to resolve media.",
+            "BAD_GATEWAY",
+            502,
+            "downloader.resolve",
+          );
         return json(
           {
             error:
